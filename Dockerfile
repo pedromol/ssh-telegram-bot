@@ -1,4 +1,4 @@
-FROM docker.io/node:16-alpine
+FROM node:16-alpine
 
 COPY . /srv
 WORKDIR /srv
