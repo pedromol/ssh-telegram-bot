@@ -25,7 +25,7 @@ const bot = new TelegramBot(process.env['TELEGRAM_TOKEN'], { polling: true });
 const ssh = new NodeSSH();
 
 const channels = {};
-const allowedUsers = process.env['TELEGRAM_ALLOWED_USERNAMES'].split(';').map((str) => str);
+const allowedUsers = process.env['TELEGRAM_ALLOWED_USERNAMES'].split(';');
 const debouncerTimeout = process.env['DEBOUNCER_TIMEOUT'] ?? 1000;
 
 const getChannel = async (msg) => {
