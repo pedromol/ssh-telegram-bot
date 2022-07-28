@@ -4,18 +4,19 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "update": "npx npm-check-updates -u"
   },
   "type": "module",
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "node-ssh": "^12.0.4",
-    "node-telegram-bot-api": "^0.57.0",
+    "node-ssh": "^13.0.0",
+    "node-telegram-bot-api": "github:yagop/node-telegram-bot-api",
     "strip-ansi": "^7.0.1"
   },
   "devDependencies": {
     "@types/node-telegram-bot-api": "^0.57.1",
-    "@types/ssh2": "^0.5.52"
+    "@types/ssh2": "^1.11.5"
   }
 }

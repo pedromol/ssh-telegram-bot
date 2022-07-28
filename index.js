@@ -1,6 +1,3 @@
-// Suppress useless warning : https://github.com/yagop/node-telegram-bot-api/issues/319
-process.env['NTBA_FIX_319'] = '1';
-
 const validateEnv = () => {
     const requiredEnv = ['TELEGRAM_TOKEN', 'SSH_HOST', 'SSH_USERNAME', 'TELEGRAM_ALLOWED_USERNAMES'].find(
         (env) => !process.env[env],
@@ -44,7 +41,7 @@ const getChannel = async (msg) => {
     channels[chatId].connection = await ssh.connect({
         host: process.env['SSH_HOST'],
         username: process.env['SSH_USERNAME'],
-        privateKey: process.env['SSH_KEY'],
+        privateKeyPath: process.env['SSH_KEY'],
         password: process.env['SSH_PASSWORD'],
         port: process.env['SSH_PORT'] || 22,
     });
@@ -111,10 +108,14 @@ bot.on('message', (msg) => {
     return getChannel(msg).then((channel) => channel.shell.write(msg.text.trim() + '\n'));
 });
 
-bot.on('error', (err) => {
+const printCrash = (err) => {
     console.error('node-telegram-bot-api error : ', err);
     process.exit(1);
-});
+}
+
+bot.on('error', printCrash);
+bot.on('polling_error', printCrash);
+bot.on('webhook_error', printCrash);
 
 console.log(`Starting ssh-telegram-bot with parameters
 Host : ${process.env['SSH_HOST']}
